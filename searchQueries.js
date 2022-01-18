@@ -51,3 +51,19 @@ const findAllPokemonOwners = async function (name) {
 
 //findAllPokemonOwners("gengar");
 /////////////////////////////////////////////////////////////////////////////
+
+const findNamesPokemonsOfTrainer = async function (trainerName) {
+  let arrPokeNames = [];
+  let query = `SELECT pokemon.name
+                FROM pokemon_trainer, pokemon, trainer
+                WHERE pokemon_trainer.pokemon_id = pokemon.id AND
+                pokemon_trainer.trainer_id = trainer.id 
+                AND trainer.name = '${trainerName}'
+                `;
+  let result = await sequelize.query(query);
+  arrPokeNames = result[0].map((p) => p.name);
+  console.log(arrPokeNames);
+};
+
+findNamesPokemonsOfTrainer("Loga");
+//////////////////////////////////////////////////////////////////////
