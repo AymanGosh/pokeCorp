@@ -61,3 +61,15 @@ const addToTrainerTable = async function (pokemons) {
 
 //addToTrainerTable(poke_data);
 /////////////////////////////////////////////////////////////////////////////////////
+
+const addToPokemonsTable = async function (pokemons) {
+  pokemons.forEach(async (p) => {
+    const query_type = `SELECT id FROM pokemon_type WHERE type='${p.type}'`;
+    const type_id = await sequelize.query(query_type);
+    let query = `INSERT INTO pokemon VALUES (${p.id}, '${p.name}', ${type_id[0][0].id}, ${p.height}, ${p.weight} )`;
+    let result = await sequelize.query(query);
+    return result[0];
+  });
+};
+//addToPokemonsTable(poke_data);
+////////////////////////////////////////////////////////////////////////////////////
