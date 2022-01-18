@@ -14,10 +14,10 @@ sequelize
 /////////////////////////////////////////////////////////////////////
 
 const addToPokemonTypeTable = async function (pokemons) {
-  let arr = [];
+  let arrTypes = [];
   pokemons.forEach(async (p) => {
-    if (!arr.includes(p.type)) {
-      arr.push(p.type);
+    if (!arrTypes.includes(p.type)) {
+      arrTypes.push(p.type);
       let query = `INSERT INTO pokemon_type VALUES (null, '${p.type}')`;
       let result = await sequelize.query(query);
       return result[0];
@@ -25,5 +25,21 @@ const addToPokemonTypeTable = async function (pokemons) {
   });
 };
 
-addToPokemonTypeTable(poke_data);
+//addToPokemonTypeTable(poke_data);
+///////////////////////////////////////////////////////////////////////////////////////
+const addToTownTable = async function (pokemons) {
+  let arrTowns = [];
+  pokemons.forEach(async (p) => {
+    p.ownedBy.forEach(async (o) => {
+      if (!arrTowns.includes(o.town)) {
+        arrTowns.push(o.town);
+        let query = `INSERT INTO town VALUES (null, '${o.town}')`;
+        let result = await sequelize.query(query);
+        return result[0];
+      }
+    });
+  });
+};
+
+//addToTownTable(poke_data);
 ///////////////////////////////////////////////////////////////////////////////////////
