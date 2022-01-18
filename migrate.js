@@ -73,3 +73,19 @@ const addToPokemonsTable = async function (pokemons) {
 };
 //addToPokemonsTable(poke_data);
 ////////////////////////////////////////////////////////////////////////////////////
+
+const addToPokemonTrainerTable = async function (pokemons) {
+  pokemons.forEach(async (p) => {
+    let pokemonID = p.id;
+    p.ownedBy.forEach(async (o) => {
+      let query1 = `SELECT id FROM trainer WHERE name='${o.name}'`;
+      result = await sequelize.query(query1);
+      let ownerIds = result[0];
+      let query2 = `INSERT INTO pokemon_trainer VALUES (${pokemonID}, ${ownerIds[0].id})`;
+      result2 = await sequelize.query(query2);
+    });
+  });
+};
+
+//addToPokemonTrainerTable(poke_data);
+//////////////////////////////////////////////////////////////////////////////////////
