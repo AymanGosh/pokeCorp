@@ -43,3 +43,21 @@ const addToTownTable = async function (pokemons) {
 
 //addToTownTable(poke_data);
 ///////////////////////////////////////////////////////////////////////////////////////
+const addToTrainerTable = async function (pokemons) {
+  const arrTrainers = [];
+  pokemons.forEach((p) => {
+    p.ownedBy.forEach(async (o) => {
+      if (!arrTrainers.includes(o.name)) {
+        arrTrainers.push(o.name);
+        const query_town = `SELECT id FROM town WHERE town='${o.town}'`;
+        const town_id = await sequelize.query(query_town);
+        let query = `INSERT INTO trainer VALUES (null, '${o.name}', ${town_id[0][0].id})`;
+        let result = await sequelize.query(query);
+        return result[0];
+      }
+    });
+  });
+};
+
+//addToTrainerTable(poke_data);
+/////////////////////////////////////////////////////////////////////////////////////
