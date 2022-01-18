@@ -22,4 +22,17 @@ const findHeaviestPokemon = async function () {
   console.log(heaviestPokemon);
 };
 
-findHeaviestPokemon();
+//findHeaviestPokemon();
+/////////////////////////////////////////////////////////////////////////////////
+const findPokemonByType = async function (type) {
+  let arrPokemons = [];
+  let query = `SELECT name 
+                FROM pokemon 
+                WHERE type=(SELECT id FROM pokemon_type WHERE type = '${type}') `;
+  let result = await sequelize.query(query);
+  arrPokemons = result[0].map((p) => p.name);
+  console.log(arrPokemons);
+};
+
+//findPokemonByType("grass");
+//////////////////////////////////////////////////////////////////////////////////////
