@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize("mysql://root:@localhost/sql_intro");
-const poke_data = require("./poke_data.json");
 
 sequelize
   .authenticate()
@@ -11,7 +10,7 @@ sequelize
   .catch((err) => {
     console.error("Unable to connect to the database:", err);
   });
-
+/////////////////////////////////////////////////////////////////
 sequelize
   .query("INSERT INTO company VALUES(null, 'Google', 'Tech', 10000)")
   .then(function ([result]) {

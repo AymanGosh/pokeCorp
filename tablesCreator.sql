@@ -23,8 +23,8 @@
 --     id INT PRIMARY KEY,
 --     name VARCHAR(20),
 --     type INT,
---     height SMALLINT,
---     weight SMALLINT,
+--     height INT,
+--     weight INT,
 --     FOREIGN KEY(type) REFERENCES pokemon_type(id)
 
 -- );
