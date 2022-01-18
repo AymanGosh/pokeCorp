@@ -36,3 +36,18 @@ const findPokemonByType = async function (type) {
 
 //findPokemonByType("grass");
 //////////////////////////////////////////////////////////////////////////////////////
+const findAllPokemonOwners = async function (name) {
+  let arrTrainersName = [];
+  let query = `SELECT trainer.name
+                FROM pokemon_trainer, pokemon, trainer
+                WHERE pokemon_trainer.pokemon_id = pokemon.id AND
+                pokemon_trainer.trainer_id = trainer.id 
+                AND pokemon.name = '${name}'
+                `;
+  let result = await sequelize.query(query);
+  arrTrainersName = result[0].map((p) => p.name);
+  console.log(arrTrainersName);
+};
+
+//findAllPokemonOwners("gengar");
+/////////////////////////////////////////////////////////////////////////////
